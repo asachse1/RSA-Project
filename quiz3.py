@@ -43,7 +43,8 @@ def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
     
     # current "i" doesn't fit (SUBPROBLEM)
     if (objWeights[i - 1] > maxWeight):
-        return propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
+        optimalValues[i-1][maxWeight] = propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
+        return optimalValues[i-1][maxWeight]
     
     # current "i" can fit!!!
     elif(objWeights[i - 1] <= maxWeight):
