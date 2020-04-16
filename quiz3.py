@@ -38,6 +38,9 @@ def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
     if (maxWeight == 0 or i == 0):
         return 0
     
+    if optimalValues[i-1][maxWeight] != NULL_NUMBER:
+        return (optimalValues[i-1][maxWeight])
+    
     # current "i" doesn't fit (SUBPROBLEM)
     if (objWeights[i - 1] > maxWeight):
         return propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
@@ -50,7 +53,8 @@ def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
         # same capacity WITHOUT current item (SUBPROBLEM)
         option2 = propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
         # return SUBPROBLEM max Value
-        return (max(option1, option2))
+        optimalValues[i-1][maxWeight] = (max(option1, option2))
+        return optimalValues[i-1][maxWeight]
 
 
 
@@ -80,5 +84,6 @@ for i in range(len(warehouseWeights)):
     optimalValues.append([])
     for j in range(maxWeight + 1):
         optimalValues[i].append(NULL_NUMBER)
-        
+
 print (propValueStr + str(propValueAlgo(maxWeight, len(warehouseWeights), warehouseWeights, propValues, optimalValues)))
+print("hello")
