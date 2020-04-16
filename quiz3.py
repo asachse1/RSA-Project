@@ -1,0 +1,80 @@
+#Name: Adam Sachsel
+#Date: 04/15/2020
+#Assn: Quiz3
+#Class: Marron CS441
+
+NULL_NUMBER = -100
+
+class Package:
+    def __init__(self, weight, value, ratio):
+        self.weight = weight
+        self.value = value
+        self.ratio = self.value/self.weight
+
+
+def constantValueAlgo(constantPrice, maxWeight, warehouseWeights):
+   # SORT O(nlogn)
+    warehouseWeights.sort()
+    currentWeight = 0
+    ctr = 0
+
+    # Worst Case O(n)
+    while (currentWeight < maxWeight):
+        #none left
+        if (ctr >= len(warehouseWeights)):
+            return (ctr * constantPrice)
+        #add one more
+        elif (currentWeight + warehouseWeights[ctr] <= maxWeight):
+            currentWeight += warehouseWeights[ctr]
+            ctr += 1
+        else:
+            return (ctr * constantPrice)
+        #at or over capacity
+        if (currentWeight >= maxWeight):
+            return (ctr * constantPrice)
+
+def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
+    
+    if (maxWeight == 0 or i == 0):
+        return 0
+    
+    # current "i" doesn't fit (SUBPROBLEM)
+    if (objWeights[i - 1] > maxWeight):
+        return propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
+    
+    # current "i" can fit!!!
+    elif(objWeights[i - 1] <= maxWeight):
+        
+        # current object + SUBPROBLEM of leftover weight
+        option1 = objValues[i-1] + propValueAlgo((maxWeight - objWeights[i-1]), i-1, objWeights, objValues, optimalValues)
+        # same capacity WITHOUT current item (SUBPROBLEM)
+        option2 = propValueAlgo(maxWeight, i-1, objWeights, objValues, optimalValues)
+        # return SUBPROBLEM max Value
+        return (max(option1, option2))
+
+
+
+# wi1, wi2, wi3... wim
+warehouseWeights = [2, 3, 4, 5]
+
+# W
+maxWeight = 7
+
+# C
+constantPrice = 1
+
+# Vi
+propValues = [0 for x in range(len(warehouseWeights))]
+
+for x in range(len(warehouseWeights)):
+    propValues[x] = (warehouseWeights[x] * constantPrice)
+
+constValueStr = "Max value possible with constant value is: "
+propValueStr = "Max value possible with proportional value is: "
+
+
+print (constValueStr + str(constantValueAlgo(constantPrice, maxWeight, warehouseWeights)))
+
+optimalValues = [[NULL_NUMBER] * (maxWeight + 1)] * (len(warehouseWeights) + 1)
+
+print (propValueStr + str(propValueAlgo(maxWeight, len(warehouseWeights), warehouseWeights, propValues, optimalValues)))
