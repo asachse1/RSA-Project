@@ -35,9 +35,11 @@ def constantValueAlgo(constantPrice, maxWeight, warehouseWeights):
 
 def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
     
+    # Base Case (ground Zero)
     if (maxWeight == 0 or i == 0):
         return 0
     
+    # Base Case (Already calculated SUBPROBLEM)
     if optimalValues[i-1][maxWeight] != NULL_NUMBER:
         return (optimalValues[i-1][maxWeight])
     
