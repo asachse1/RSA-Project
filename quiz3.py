@@ -60,7 +60,7 @@ def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
 
 
 # wi1, wi2, wi3... wim
-warehouseWeights = [2, 3, 4, 5]
+warehouseWeights = [1, 3, 4, 5]
 
 # W
 maxWeight = 7
@@ -70,6 +70,7 @@ constantPrice = 1
 
 # Vi
 propValues = [0 for x in range(len(warehouseWeights))]
+
 
 for x in range(len(warehouseWeights)):
     propValues[x] = (warehouseWeights[x] * constantPrice)
