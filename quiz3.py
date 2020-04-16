@@ -58,34 +58,58 @@ def propValueAlgo(maxWeight, i, objWeights, objValues, optimalValues):
         return optimalValues[i-1][maxWeight]
 
 
+modeNum = NULL_NUMBER
+# Setting Mode Test
+print('\n')
+while (modeNum != 0 and modeNum != 1):
+    modeNum = int(input("Please enter '0' to test Greedy Algorithm, and '1' to test Recursive/Dynamic/Memoization Algorithm: "))
 
 # wi1, wi2, wi3... wim
-warehouseWeights = [1, 3, 4, 5]
+warehouseWeights = []
+numInput = 0
+print('\n')
 
-# W
-maxWeight = 7
+#Setting package weights
+while (numInput >= 0):
+    numInput = int(input("Enter the positive weight of each package, pressing 'Enter' after each package. (Enter a negative # when finished): "))
+    if (numInput >= 0):
+        warehouseWeights.append(numInput)
+numInput = NULL_NUMBER
+print('\n')
 
-# C
-constantPrice = 1
+#Setting max weight
+while (numInput < 0):
+    numInput = int(input("Please enter the max weight the truck can hold. (0 or larger): "))
+maxWeight = numInput
+numInput = NULL_NUMBER
+print('\n')
 
-# Vi
-propValues = [0 for x in range(len(warehouseWeights))]
+#Setting Constant Variable
+while (numInput < 0):
+    numInput = int(input("Please enter a number to represent the CONSTANT price modifier. (0 or larger): "))
+constantPrice = numInput
+
+print('\n')
+constValueStr = "Weights: " + str(warehouseWeights) + '\n' + "Max Value Possible (Greedy Algorithm): "
+propValueStr = "Weights: " + str(warehouseWeights) + '\n' + "Max Value Possible(Dynamic/Recursive Algorithm): "
+
+# Greedy Algorithm
+if (modeNum == 0):
+    print (constValueStr + str(constantValueAlgo(constantPrice, maxWeight, warehouseWeights)))
+
+# Recursive/Dynamic Algorithm
+if (modeNum == 1):
+    propValues = [0 for x in range(len(warehouseWeights))]
 
 
-for x in range(len(warehouseWeights)):
-    propValues[x] = (warehouseWeights[x] * constantPrice)
+    for x in range(len(warehouseWeights)):
+        propValues[x] = (warehouseWeights[x] * constantPrice)
 
-constValueStr = "Max value possible with constant value is: "
-propValueStr = "Max value possible with proportional value is: "
-
-
-print (constValueStr + str(constantValueAlgo(constantPrice, maxWeight, warehouseWeights)))
-
-optimalValues = []
-for i in range(len(warehouseWeights)):
-    optimalValues.append([])
-    for j in range(maxWeight + 1):
-        optimalValues[i].append(NULL_NUMBER)
-
-print (propValueStr + str(propValueAlgo(maxWeight, len(warehouseWeights), warehouseWeights, propValues, optimalValues)))
-print("hello")
+    #Create Memoization Table
+    optimalValues = []
+    for i in range(len(warehouseWeights)):
+        optimalValues.append([])
+        for j in range(maxWeight + 1):
+            optimalValues[i].append(NULL_NUMBER)
+    #FUNCTION CALL
+    print (propValueStr + str(propValueAlgo(maxWeight, len(warehouseWeights), warehouseWeights, propValues, optimalValues)))
