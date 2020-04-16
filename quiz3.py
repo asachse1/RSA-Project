@@ -75,6 +75,10 @@ propValueStr = "Max value possible with proportional value is: "
 
 print (constValueStr + str(constantValueAlgo(constantPrice, maxWeight, warehouseWeights)))
 
-optimalValues = [[NULL_NUMBER] * (maxWeight + 1)] * (len(warehouseWeights) + 1)
-
+optimalValues = []
+for i in range(len(warehouseWeights)):
+    optimalValues.append([])
+    for j in range(maxWeight + 1):
+        optimalValues[i].append(NULL_NUMBER)
+        
 print (propValueStr + str(propValueAlgo(maxWeight, len(warehouseWeights), warehouseWeights, propValues, optimalValues)))
