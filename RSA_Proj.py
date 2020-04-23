@@ -2,6 +2,8 @@
 #Date: 04/22/2020
 #Assn: RSN_Project
 #Class: Marron CS441
+#Build Inst: sudo apt-get install -y python3-gmpy
+#Just need to include the gmpy2 library.
 
 import gmpy2
 from gmpy2 import mpz, powmod, is_prime
