@@ -80,6 +80,10 @@ def main():
     #Primes Generated
     p = primeGen(modSize)
     q = primeGen(modSize)
+    print("P is equal to: ")
+    print(p)
+    print("Q is equal to: ")
+    print(q)
 
     while (p == q):
         q = primeGen(modSize)
